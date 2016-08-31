@@ -31,7 +31,7 @@
     "joi": "^9.0.4",
     "lodash": "^4.15.0",
     "maf": "^0.4.4",
-    "mazaid-check": "^0.1.3",
+    "mazaid-check": "^0.1.4",
     "mazaid-check-task": "^0.1.12",
     "mazaid-checker-ping": "^0.1.4",
     "mazaid-error": "^0.3.1",
