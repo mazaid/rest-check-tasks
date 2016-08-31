@@ -4,6 +4,12 @@
 
     "db": {
         "dsl": "mongodb://localhost:27017/mazaid"
+    },
+
+    "api": {
+        "execTasks": {
+            "base": "http://localhost:8084"
+        }
     }
 
 }

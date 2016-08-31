@@ -77,6 +77,10 @@ module.exports = {
                 api.checkTasks.create(req.body)
                     .then((checkTask) => {
                         res.result(api.checkTasks.clearSystemFields(checkTask));
+                        return checkTask;
+                    })
+                    .then((checkTask) => {
+                        api.executor.exec(checkTask.id);
                     })
                     .catch((error) => {
                         var ec = {

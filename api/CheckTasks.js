@@ -28,24 +28,16 @@ class CheckTasks extends Abstract {
         this._creationSchema = function() {
             return {
                 checkId: joi.string().guid().default(null).allow(null),
-
                 execTaskId: joi.string().guid().default(null).allow(null),
-
                 checker: joi.string().required(),
-
                 timeout: joi.number().min(1).default(180).description('task execution timeout in seconds'),
-
                 data: joi.object().unknown(true).required(),
-
                 status: joi.string().valid(['created', 'queued', 'started', 'finished']),
-
                 rawResult: joi.any().description('parsed exec result').default(null).allow(null),
-
                 result: joi.object().unknown(true).keys({
                     status: joi.string().valid(['pass', 'fail', 'warn']).required(),
                     message: joi.string(),
                 }).default(null).allow(null),
-
                 creationDate: joi.number().integer().min(0).required(),
                 timeoutDate: joi.number().integer().min(0).required(),
                 queuedDate: joi.number().integer().min(0).default(null).allow(null),
@@ -54,21 +46,23 @@ class CheckTasks extends Abstract {
             };
         };
 
-        this._modificationSchema = {
-            execTaskId: joi.string().guid(),
+        this._modificationSchema = function() {
+            return {
+                execTaskId: joi.string().guid(),
 
-            status: joi.string().valid(['queued', 'started', 'finished']),
+                status: joi.string().valid(['queued', 'started', 'finished']),
 
-            rawResult: joi.any().description('parsed exec result').default(null).allow(null),
+                rawResult: joi.any().description('parsed exec result'),
 
-            result: joi.object().unknown(true).keys({
-                status: joi.string().valid(['pass', 'fail', 'warn']).required(),
-                message: joi.string(),
-            }),
+                result: joi.object().unknown(true).keys({
+                    status: joi.string().valid(['pass', 'fail', 'warn']).required(),
+                    message: joi.string(),
+                }),
 
-            queuedDate: joi.number().integer().min(0),
-            startDate: joi.number().integer().min(0),
-            finishDate: joi.number().integer().min(0)
+                queuedDate: joi.number().integer().min(0),
+                startDate: joi.number().integer().min(0),
+                finishDate: joi.number().integer().min(0)
+            };
         };
 
         this._systemFields = [
@@ -187,8 +181,8 @@ class CheckTasks extends Abstract {
             }
 
             this.getById(id)
-                .then((check) => {
-                    if (!check) {
+                .then((task) => {
+                    if (!task) {
                         throw this.Error(
                             `${this.entityName} not found: id = ${id}`,
                             this.errorCodes.NOT_FOUND
