@@ -17,7 +17,7 @@ module.exports = (config, models, di) => {
         api.check = new A.Check(di.logger, {});
         api.executor = new A.Executor(di.logger, {}, api);
         api.rest = new A.RestApiClient();
-        api.execTasks = new A.ExecTasks(di.config.api.execTasks, api.rest);
+        api.execTasksClient = new A.ExecTasks(di.config.api.execTasks, api.rest);
 
         for (var name in api) {
             if (di.debug && api[name].setDebugger) {

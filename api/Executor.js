@@ -81,7 +81,7 @@ class Executor {
                     return this._api.check.prepare(task);
                 })
                 .then((execData) => {
-                    return this._api.execTasks.create(execData);
+                    return this._api.execTasksClient.create(execData);
                 })
                 .then((execTask) => {
 
@@ -99,7 +99,7 @@ class Executor {
                     // wait for exec task finished
                     return new Promise((resolve, reject) => {
                         checkInterval = setInterval(() => {
-                            this._api.execTasks.getById(execTaskId)
+                            this._api.execTasksClient.getById(execTaskId)
                                 .then((execTask) => {
 
                                     if (execTask.status === 'finished') {
