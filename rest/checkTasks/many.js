@@ -14,7 +14,8 @@ module.exports = {
             schema: {
                 query: {
                     limit: joi.number().default(10).min(0).max(100),
-                    offset: joi.number().default(0).min(0).max(100)
+                    offset: joi.number().default(0).min(0).max(100),
+                    checkId: joi.string()
                 }
             },
 
@@ -22,11 +23,19 @@ module.exports = {
                 var logger = req.di.logger;
                 var api = req.di.api;
 
-                api.checkTasks.find()
-                    .limit(req.query.limit)
-                    .skip(req.query.offset)
-                    .sort({creationDate: -1})
-                    .exec()
+                var filters = {};
+
+                if (req.query.checkId) {
+                    filters.checkId = req.query.checkId;
+                }
+
+                var request = api.checkTasks.find(filters);
+
+                request.limit(req.query.limit).skip(req.query.offset);
+
+                request.sort({creationDate: -1});
+
+                request.exec()
                     .then((result) => {
                         var docs = [];
 
