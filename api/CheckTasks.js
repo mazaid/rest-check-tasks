@@ -278,14 +278,15 @@ class CheckTasks extends Abstract {
     }
 
     /**
-     * @param {String} checkName
+     * @param {String} id
+     *
      * @return {Error}
      */
-    NotFoundError(name) {
+    NotFoundError(id) {
         var message = this.entityName + ' not found';
 
-        if (checkName) {
-            message = `${this.entityName} with name = "${name}" not found`;
+        if (id) {
+            message = `${this.entityName} with id = "${id}" not found`;
         }
 
         return this.Error(message, this.ErrorCodes.NOT_FOUND);

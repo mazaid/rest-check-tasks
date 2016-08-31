@@ -5,7 +5,7 @@ module.exports = (config, models, di) => {
         var A = {
             CheckTasks: require('./CheckTasks'),
             Check: require('mazaid-check').Check,
-            Executor: require('./Executor'),
+            CheckTaskExecutor: require('./Executor'),
 
             RestApiClient: require('maf/Rest/Client'),
             ExecTasks: require('mazaid-rest-api-clients/ExecTasks')
@@ -15,7 +15,7 @@ module.exports = (config, models, di) => {
 
         api.checkTasks = new A.CheckTasks({}, models, api);
         api.check = new A.Check(di.logger, {});
-        api.executor = new A.Executor(di.logger, {}, api);
+        api.checkTaskExecutor = new A.CheckTaskExecutor(di.logger, {}, api);
         api.rest = new A.RestApiClient();
         api.execTasksClient = new A.ExecTasks(di.config.api.execTasks, api.rest);
 

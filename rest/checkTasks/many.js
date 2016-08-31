@@ -89,7 +89,7 @@ module.exports = {
                         return checkTask;
                     })
                     .then((checkTask) => {
-                        api.executor.exec(checkTask.id);
+                        api.checkTaskExecutor.exec(checkTask.id);
                     })
                     .catch((error) => {
                         var ec = {

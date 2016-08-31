@@ -33,11 +33,13 @@ class Executor {
 
             var task, rawTask, execTaskId, timeout, timeouted = false, checkInterval;
 
+            console.log(id);
+
             this._api.checkTasks.getById(id)
                 .then((_rawTask) => {
 
                     if (!_rawTask) {
-                        throw createError(`task id = ${id} not found`, ErrorCodes.NOT_FOUND);
+                        throw createError(`check task id = ${id} not found`, ErrorCodes.NOT_FOUND);
                     }
 
                     rawTask = this._api.checkTasks.clearSystemFields(_rawTask);;
@@ -162,6 +164,7 @@ class Executor {
 
                     this._logger.error(error);
 
+                    // TODO check task exists
                     task.finished();
 
                     var data = {
