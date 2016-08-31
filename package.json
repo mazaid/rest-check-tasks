@@ -1,0 +1,52 @@
+{
+  "name": "mazaid-rest-checks",
+  "version": "0.0.0",
+  "description": "checks REST API",
+  "main": "index.js",
+  "scripts": {
+    "docs": "rm -rf ./docs && ./node_modules/.bin/jsdoc ./ -c ./.jsdoc.json --verbose && open ./docs/index.html",
+    "tests": "./node_modules/.bin/mocha ./test/",
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./test/"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mazaid/rest-checks.git"
+  },
+  "keywords": [
+    "mazaid"
+  ],
+  "author": "alekzonder <alekzonder@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mazaid/rest-checks/issues"
+  },
+  "homepage": "https://github.com/mazaid/rest-checks#readme",
+  "dependencies": {
+    "joi": "^9.0.4",
+    "lodash": "^4.15.0",
+    "maf": "^0.4.3",
+    "mazaid-check": "^0.1.2",
+    "mazaid-check-task": "^0.1.9",
+    "mazaid-error": "^0.3.1",
+    "md5": "^2.1.0",
+    "mongodb": "^2.2.9",
+    "repl-extra": "^0.1.3",
+    "uuid": "^2.0.2"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "chai-json-schema": "git+https://github.com/chaijs/chai-json-schema.git",
+    "codeclimate-test-reporter": "^0.3.3",
+    "ink-docstrap": "^1.2.1",
+    "istanbul": "^0.4.4",
+    "jsdoc": "^3.4.0",
+    "minami": "^1.1.1",
+    "mocha": "^2.4.5"
+  }
+}

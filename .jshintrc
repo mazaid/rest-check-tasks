@@ -1,0 +1,20 @@
+{
+    "globals": {
+        "Promise": true,
+        "require": true
+    },
+
+    "esnext": true,
+
+    "esversion": 6,
+
+    "maxerr": 15,
+
+    "nonew": true,
+    "maxparams": 5,
+    "maxdepth": 5,
+    "maxstatements": 50,
+    "maxcomplexity": 25,
+
+    "node": true
+}

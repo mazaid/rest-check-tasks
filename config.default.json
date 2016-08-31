@@ -1,0 +1,9 @@
+{
+    "host": null,
+    "port": 8083,
+
+    "db": {
+        "dsl": "mongodb://localhost:27017/mazaid"
+    }
+
+}
