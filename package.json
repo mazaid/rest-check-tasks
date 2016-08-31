@@ -1,6 +1,6 @@
 {
   "name": "mazaid-rest-checks",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "checks REST API",
   "main": "index.js",
   "scripts": {
