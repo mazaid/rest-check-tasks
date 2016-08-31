@@ -10,32 +10,17 @@ checks REST API
 
 ```js
 {
-	id: "<Uuid>",
-	name: "<String>",
-	title: "<String>",
-	description: "<String>",
-	checker: "<String>",
-	data: {
-		// ...
-	},
-	active: "<Boolean>",
-	deleted: "<Boolean>"
-
+    // ...
 }
 ```
 
 # REST API
 
-## GET   /checkTasks
-
 ## POST  /checkTasks
 
-## GET   /checks/:name
+## GET   /checkTasks
 
-## PATCH /checks/:name
-
-## POST  /checks/:name/check
-
+## GET /checkTasks/:id
 
 # License
 
