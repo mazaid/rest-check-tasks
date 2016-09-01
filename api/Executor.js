@@ -33,8 +33,6 @@ class Executor {
 
             var task, rawTask, execTaskId, timeout, timeouted = false, checkInterval;
 
-            console.log(id);
-
             this._api.checkTasks.getById(id)
                 .then((_rawTask) => {
 
