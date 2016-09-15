@@ -7,11 +7,13 @@ module.exports = (config, di) => {
         var db = di.getConnection('db');
 
         var M = {
-            CheckTasks: require('./CheckTasks')
+            CheckTasks: require('./CheckTasks'),
+            LatestByCheckId: require('./LatestByCheckId')
         };
 
         var models = {
-            checkTasks: new M.CheckTasks(db)
+            checkTasks: new M.CheckTasks(db),
+            latestByCheckId: new M.LatestByCheckId(db)
         };
 
         _.each(models, (model) => {

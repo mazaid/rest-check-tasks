@@ -92,6 +92,26 @@ class CheckTasks extends Abstract {
 
     }
 
+    findLatestByCheckId(checkIds) {
+
+        return new Promise((resolve, reject) => {
+            this._models.latestByCheckId.find({_id: {'$in': checkIds}}).exec()
+                .then((data) => {
+                    var result = [];
+
+                    for (var doc of data.docs) {
+                        result.push(doc.checkTaskId);
+                    }
+
+                    resolve(result);
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+
+    }
+
     find(filters, fields) {
 
         var chain = new Chain({
@@ -102,9 +122,23 @@ class CheckTasks extends Abstract {
             }
         });
 
+        if (Array.isArray(fields)) {
+            fields = this._prepareFields(fields);
+        }
+
         chain.onExec((data) => {
 
             return new Promise((resolve, reject) => {
+
+                // TODO check array
+                if (filters.checkId) {
+                    filters.checkId = {'$in': filters.checkId};
+                }
+
+                if (filters.id && Array.isArray(filters.id)) {
+                    filters.id = {'$in': filters.id};
+                }
+
                 this._model().find(filters, fields)
                     .mapToChain(data)
                     .exec()
@@ -262,8 +296,31 @@ class CheckTasks extends Abstract {
 
             valid.timeoutDate = valid.creationDate + valid.timeout;
 
+            var doc;
+
             this._model().insertOne(valid)
-                .then((doc) => {
+                .then((_doc) => {
+                    doc = _doc;
+
+                    if (data.checkId) {
+                        return this._models.latestByCheckId.findOneAndUpdate(
+                            {
+                                _id: data.checkId
+                            },
+                            {
+                                id: data.checkId,
+                                checkTaskId: data.id
+                            },
+                            {
+                                upsert: true
+                            }
+                        );
+                    } else {
+                        return;
+                    }
+
+                })
+                .then(function () {
                     resolve(doc);
                 })
                 .catch((error) => {

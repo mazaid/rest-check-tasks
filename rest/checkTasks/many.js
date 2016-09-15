@@ -15,7 +15,9 @@ module.exports = {
                 query: {
                     limit: joi.number().default(10).min(0).max(100),
                     offset: joi.number().default(0).min(0).max(100),
-                    checkId: joi.string()
+                    fields:  joi.alternatives().try(joi.array().items(joi.string()), joi.string()),
+                    checkId: joi.alternatives().try(joi.string(), joi.array().items(joi.string())),
+                    latest: joi.boolean()
                 }
             },
 
@@ -23,19 +25,62 @@ module.exports = {
                 var logger = req.di.logger;
                 var api = req.di.api;
 
-                var filters = {};
+                var filters = {}, fields = null;
 
                 if (req.query.checkId) {
-                    filters.checkId = req.query.checkId;
+
+                    var checkId = [];
+
+                    if (typeof req.query.checkId === 'string') {
+                        filters.checkId = _.map(req.query.checkId.split(','), v => _.trim(v));
+                    } else if (Array.isArray(req.query.checkId)) {
+                        filters.checkId = _.map(req.query.checkId, v => _.trim(v));
+                    }
+
                 }
 
-                var request = api.checkTasks.find(filters);
+                if (typeof req.query.fields === 'string') {
+                    fields = _.map(req.query.fields.split(','), v => _.trim(v));
+                } else if (Array.isArray(req.query.fields)) {
+                    fields = req.query.fields;
+                }
 
-                request.limit(req.query.limit).skip(req.query.offset);
+                var latest = new Promise((resolve, reject) => {
 
-                request.sort({creationDate: -1});
+                    if (req.query.latest !== true) {
+                        return resolve();
+                    }
 
-                request.exec()
+                    var checkIds = [];
+
+                    if (filters.checkId) {
+                        checkIds = filters.checkId;
+                    }
+
+                    delete filters.checkId;
+
+                    api.checkTasks.findLatestByCheckId(checkIds)
+                        .then((checkTaskIds) => {
+                            filters.id = checkTaskIds;
+
+                            resolve();
+                        })
+                        .catch((error) => {
+                            reject(error);
+                        });
+
+                });
+
+                latest
+                    .then(() => {
+                        var request = api.checkTasks.find(filters, fields);
+
+                        request.limit(req.query.limit).skip(req.query.offset);
+
+                        request.sort({creationDate: -1});
+
+                        return request.exec();
+                    })
                     .then((result) => {
                         var docs = [];
 
