@@ -170,7 +170,7 @@ class Executor {
                         finishDate: task.finishDate,
                         result: {
                             status: 'fail',
-                            message: error.message
+                            message: (error.message) ? error.message : 'unknown error'
                         }
                     };
 

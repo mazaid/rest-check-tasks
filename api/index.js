@@ -39,7 +39,15 @@ module.exports = (config, models, di) => {
 
         };
 
-        api.check.add(require('mazaid-checker-ping'))
+        var promises = [];
+
+        var checkers = require('mazaid-checkers');
+
+        for (var checker of checkers) {
+            promises.push(api.check.add(checker));
+        }
+
+        Promise.all(promises)
             .then(() => {
                 api.check.init();
                 resolve(api);

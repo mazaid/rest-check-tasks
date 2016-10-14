@@ -1,6 +1,6 @@
 var path = require('path');
 
-var logger = require('maf/Service/Logger')('mazaid-rest-checks');
+var logger = require('maf/Service/Logger')('mazaid-rest-check-tasks');
 
 process.on('unhandledRejection', (error) => {
     logger.fatal(error);
