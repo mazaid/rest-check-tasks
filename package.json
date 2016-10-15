@@ -33,7 +33,7 @@
     "maf": "^0.4.5",
     "mazaid-check": "^0.2.1",
     "mazaid-check-task": "^0.1.13",
-    "mazaid-checkers": "^0.1.2",
+    "mazaid-checkers": "^0.1.3",
     "mazaid-error": "^0.3.1",
     "mazaid-exec-task": "^0.1.8",
     "mazaid-rest-api-clients": "^0.1.3",
