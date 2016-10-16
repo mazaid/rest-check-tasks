@@ -30,7 +30,7 @@ class CheckTasks extends Abstract {
                 checkId: joi.string().guid().default(null).allow(null),
                 execTaskId: joi.string().guid().default(null).allow(null),
                 checker: joi.string().required(),
-                timeout: joi.number().min(1).default(180).description('task execution timeout in seconds'),
+                timeout: joi.number().min(1).default(60).description('task execution timeout in seconds'),
                 data: joi.object().unknown(true).required(),
                 status: joi.string().valid(['created', 'queued', 'started', 'finished']),
                 rawResult: joi.any().description('parsed exec result').default(null).allow(null),

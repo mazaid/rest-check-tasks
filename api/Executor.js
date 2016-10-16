@@ -59,17 +59,17 @@ class Executor {
                             finishDate: task.finishDate,
                             result: {
                                 status: 'fail',
-                                message: `timeout exceed ${task.timeout}s`
+                                message: `[rest-check-tasks] timeout exceed ${task.timeout}s`
                             }
                         };
 
                         this._update(id, data)
                             .then(() => {
-                                reject(createError('timeout exceed'));
+                                reject(createError(`[rest-check-tasks] timeout exceed ${task.timeout}s`));
                             })
                             .catch((error) => {
                                 this._logger.error(error);
-                                reject(createError('timeout exceed'));
+                                reject(createError(`[rest-check-tasks] timeout exceed ${task.timeout}s`));
                             });
 
 
