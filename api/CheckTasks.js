@@ -32,6 +32,7 @@ class CheckTasks extends Abstract {
                 checker: joi.string().required(),
                 timeout: joi.number().min(1).default(60).description('task execution timeout in seconds'),
                 data: joi.object().unknown(true).required(),
+                userAnalyzeFn: joi.string().default(null).allow(null).description('custom user analyze function'),
                 status: joi.string().valid(['created', 'queued', 'started', 'finished']),
                 rawResult: joi.any().description('parsed exec result').default(null).allow(null),
                 result: joi.object().unknown(true).keys({
@@ -72,7 +73,7 @@ class CheckTasks extends Abstract {
 
     getCreationSchemaForRestApi() {
         var schema = this._creationSchema();
-        var fields = ['checkId', 'checker', 'timeout', 'data'];
+        var fields = ['checkId', 'checker', 'timeout', 'data', 'userAnalyzeFn'];
         var s = _.pick(schema, fields);
         return s;
     }
