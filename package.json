@@ -38,6 +38,7 @@
     "mazaid-exec-task": "^0.1.9",
     "mazaid-rest-api-clients": "^0.1.4",
     "md5": "2.2.1",
+    "moment": "^2.15.1",
     "mongodb": "2.2.10",
     "repl-extra": "0.1.3",
     "uuid": "2.0.3"
