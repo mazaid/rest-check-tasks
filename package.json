@@ -36,7 +36,7 @@
     "mazaid-checkers": "0.1.4",
     "mazaid-error": "0.3.1",
     "mazaid-exec-task": "^0.1.9",
-    "mazaid-rest-api-clients": "^0.1.4",
+    "mazaid-rest-api-clients": "^0.1.6",
     "md5": "2.2.1",
     "moment": "^2.15.1",
     "mongodb": "2.2.10",
