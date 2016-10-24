@@ -20,6 +20,8 @@ require(path.join(__dirname, '/init/config'))()
 
         var app = require('maf/Service/Application')(di, appConfig);
 
+        require('nprof/express/register')(di.logger, app, di.config.nprof);
+
         // if _debug
         app.use((req, res, next) => {
 

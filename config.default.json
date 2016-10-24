@@ -6,6 +6,10 @@
         "dsl": "mongodb://localhost:27017/mazaid"
     },
 
+    "nprof": {
+        "snapshotPath": "/data/tmp/mazaid/check-tasks"
+    },
+
     "api": {
         "execTasks": {
             "base": "http://localhost:8084"
