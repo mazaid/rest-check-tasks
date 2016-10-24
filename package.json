@@ -1,6 +1,6 @@
 {
   "name": "mazaid-rest-check-tasks",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "check tasks REST API",
   "main": "index.js",
   "scripts": {
