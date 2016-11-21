@@ -13,6 +13,9 @@
     "api": {
         "execTasks": {
             "base": "http://localhost:8084"
+        },
+        "notifications": {
+            "base": "http://localhost:8085"
         }
     }
 

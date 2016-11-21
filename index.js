@@ -12,6 +12,13 @@ require(path.join(__dirname, '/init/config'))()
     })
     .then((di) => {
 
+        // di.api.notificationsClient.send('test', 'test').then(() => {
+        //     di.logger.info('ok');
+        // })
+        // .catch((error) => {
+        //     di.logger.error(error);
+        // });
+
         var appConfig = {
             bodyParser: {
                 urlencoded: true
