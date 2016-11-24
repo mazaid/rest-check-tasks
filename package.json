@@ -30,7 +30,7 @@
   "dependencies": {
     "joi": "^9.2.0",
     "lodash": "4.16.4",
-    "maf": "^0.4.6",
+    "maf": "^0.5.0-beta.3",
     "mazaid-check": "^0.4.1",
     "mazaid-check-task": "^0.3.0",
     "mazaid-checkers": "0.1.4",

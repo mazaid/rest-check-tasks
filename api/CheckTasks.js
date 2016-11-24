@@ -113,6 +113,30 @@ class CheckTasks extends Abstract {
 
     }
 
+    findPrevByCheckId(checkId) {
+
+        return new Promise((resolve, reject) => {
+
+            this.find({checkId: [checkId]})
+                .sort({creationDate: -1})
+                .limit(1)
+                .skip(1)
+                .exec()
+                .then((result) => {
+                    if (result.docs.length) {
+                        resolve(result.docs[0]);
+                    } else {
+                        resolve(null);
+                    }
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+
+        });
+
+    }
+
     find(filters, fields) {
 
         var chain = new Chain({

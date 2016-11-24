@@ -9,7 +9,8 @@ module.exports = (config, models, di) => {
 
             RestApiClient: require('maf/Rest/Client'),
             ExecTasks: require('mazaid-rest-api-clients/ExecTasks'),
-            Notifications: require('mazaid-rest-api-clients/Notifications')
+            Notifications: require('mazaid-rest-api-clients/Notifications'),
+            Checks: require('mazaid-rest-api-clients/Checks')
         };
 
         var api = {};
@@ -20,8 +21,8 @@ module.exports = (config, models, di) => {
         api.rest = new A.RestApiClient();
         api.execTasksClient = new A.ExecTasks(di.config.api.execTasks, api.rest);
 
-        console.log(di.config.api.notifications);
         api.notificationsClient = new A.Notifications(di.config.api.notifications, api.rest);
+        api.checksClient = new A.Checks(di.config.api.checks, api.rest);
 
         for (var name in api) {
             if (di.debug && api[name].setDebugger) {

@@ -39,6 +39,10 @@ class ExecutorJob {
                 .then(this._updateRawResult.bind(this))
                 .then(this._analyze.bind(this))
                 .then(this._saveResult.bind(this))
+                .then(this._getPrevCheckTask.bind(this))
+                .then((prevCheckTask) => {
+                    return this._notify(this._checkTask, prevCheckTask);
+                })
                 .then(() => {
                     resolve(this._checkTask);
                 })
@@ -54,16 +58,24 @@ class ExecutorJob {
                     // TODO check task exists
                     this._checkTask.finished();
 
+                    var result = {
+                        status: 'fail',
+                        message: (error.message) ? error.message : 'unknown error'
+                    };
+
                     var data = {
                         status: 'finished',
                         finishDate: this._checkTask.finishDate,
-                        result: {
-                            status: 'fail',
-                            message: (error.message) ? error.message : 'unknown error'
-                        }
+                        result: result
                     };
 
+                    this._checkTask.result = result;
+
                     this._update(this._checkTask.id, data)
+                        .then(this._getPrevCheckTask.bind(this))
+                        .then((prevCheckTask) => {
+                            return this._notify(this._checkTask, prevCheckTask);
+                        })
                         .then(() => {
                             reject(error);
                         })
@@ -176,6 +188,7 @@ class ExecutorJob {
     }
 
     _parse(execTaskData) {
+
         this._logger.debug('parse');
 
         if (this._timeouted) {
@@ -186,6 +199,7 @@ class ExecutorJob {
         var execTask = new ExecTask(execTaskData);
 
         return this._api.check.parse(this._checkTask, execTask);
+
     }
 
     _updateRawResult(parsedResult) {
@@ -202,6 +216,7 @@ class ExecutorJob {
     }
 
     _analyze() {
+
         this._logger.debug('analyze');
 
         if (this._timeouted) {
@@ -209,9 +224,11 @@ class ExecutorJob {
         }
 
         return this._api.check.analyze(this._checkTask);
+
     }
 
     _saveResult(result) {
+
         this._logger.debug('saveResult');
 
         clearTimeout(this._timeout);
@@ -226,8 +243,89 @@ class ExecutorJob {
             result: result,
             finishDate: this._checkTask.finishDate
         });
+
     }
 
+    _getPrevCheckTask() {
+        return this._api.checkTasks.findPrevByCheckId(this._checkTask.checkId);
+    }
+
+    _notify(checkTask, prevCheckTask) {
+
+        return new Promise((resolve, reject) => {
+
+            var status = checkTask.result.status;
+            var prevStatus = 'pass';
+
+            if (
+                prevCheckTask &&
+                typeof prevCheckTask.result === 'object' &&
+                prevCheckTask.result.status
+            ) {
+                prevStatus = prevCheckTask.result.status;
+            }
+
+            var sendNotification = false;
+
+            if (status === 'fail' && prevStatus === 'pass') {
+                // notify fail
+                sendNotification = true;
+            } else if (status === 'pass' && prevStatus === 'fail') {
+                // notify pass
+                sendNotification = true;
+            }
+
+            this._logger.debug('_notify', status, prevStatus, sendNotification);
+
+            if (sendNotification) {
+                this._sendNotification()
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            } else {
+                resolve();
+            }
+
+        });
+
+    }
+
+    _sendNotification() {
+
+
+        return new Promise((resolve, reject) => {
+
+            var checkId = this._checkTask.checkId;
+
+            this._logger.debug('send notification for ' + checkId);
+
+            this._api.checksClient.getById(checkId, ['name'], /* TODO to config */ {timeout: 200})
+                .then((check) => {
+
+                    var name = checkId;
+
+                    if (check.name) {
+                        name = check.name;
+                    }
+
+                    var message = `[${this._checkTask.result.status.toUpperCase()}] [${name}] ${this._checkTask.result.message}`;
+
+                    this._logger.debug(`send notification: ${checkId} ${message}`);
+
+                    return this._api.notificationsClient.send(checkId, message);
+                })
+                .then(() => {
+                    resolve();
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+
+    }
 
     _update(id, data) {
         return this._api.checkTasks.updateById(id, data);

@@ -16,6 +16,9 @@
         },
         "notifications": {
             "base": "http://localhost:8085"
+        },
+        "checks": {
+            "base": "http://localhost:8082"
         }
     }
 
