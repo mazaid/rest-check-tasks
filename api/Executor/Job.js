@@ -265,19 +265,9 @@ class ExecutorJob {
                 prevStatus = prevCheckTask.result.status;
             }
 
-            var sendNotification = false;
+            this._logger.debug('_notify', status, prevStatus, status !== prevStatus);
 
-            if (status === 'fail' && prevStatus === 'pass') {
-                // notify fail
-                sendNotification = true;
-            } else if (status === 'pass' && prevStatus === 'fail') {
-                // notify pass
-                sendNotification = true;
-            }
-
-            this._logger.debug('_notify', status, prevStatus, sendNotification);
-
-            if (sendNotification) {
+            if (status !== prevStatus) {
                 this._sendNotification()
                     .then(() => {
                         resolve();
