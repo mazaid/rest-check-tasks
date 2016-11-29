@@ -10,7 +10,7 @@ var ExecTask = require('mazaid-exec-task');
 
 class ExecutorJob {
 
-    constructor(logger, api, checkTaskId) {
+    constructor (logger, api, checkTaskId) {
         this._logger = logger;
         this._api = api;
         this._checkTaskId = checkTaskId;
@@ -24,7 +24,7 @@ class ExecutorJob {
         this._checkInterval = null;
     }
 
-    run() {
+    run () {
 
         return new Promise((resolve, reject) => {
 
@@ -88,7 +88,7 @@ class ExecutorJob {
 
     }
 
-    _validate(rawTask) {
+    _validate (rawTask) {
 
         if (!rawTask) {
             throw createError(`check task id = ${id} not found`, ErrorCodes.NOT_FOUND);
@@ -104,7 +104,7 @@ class ExecutorJob {
 
     }
 
-    _queued() {
+    _queued () {
         this._logger.debug('queued');
 
         this._checkTask.queued();
@@ -138,17 +138,17 @@ class ExecutorJob {
         return this._update(this._checkTask.id, {status: 'queued', queuedDate: this._checkTask.queuedDate});
     }
 
-    _prepare() {
+    _prepare () {
         this._logger.debug('prepare');
         return this._api.check.prepare(this._checkTask);
     }
 
-    _createExecTask(execData) {
+    _createExecTask (execData) {
         this._logger.debug('createExecTask');
         return this._api.execTasksClient.create(execData);
     }
 
-    _started(execTask) {
+    _started (execTask) {
         this._logger.debug('started');
 
         this._execTask = execTask;
@@ -162,7 +162,7 @@ class ExecutorJob {
         });
     }
 
-    _waitForComplete() {
+    _waitForComplete () {
 
         this._logger.debug('waitForComplete');
 
@@ -187,7 +187,7 @@ class ExecutorJob {
 
     }
 
-    _parse(execTaskData) {
+    _parse (execTaskData) {
 
         this._logger.debug('parse');
 
@@ -202,7 +202,7 @@ class ExecutorJob {
 
     }
 
-    _updateRawResult(parsedResult) {
+    _updateRawResult (parsedResult) {
 
         this._logger.debug('updateRawResult');
 
@@ -215,7 +215,7 @@ class ExecutorJob {
         return this._update(this._checkTask.id, {rawResult: parsedResult});
     }
 
-    _analyze() {
+    _analyze () {
 
         this._logger.debug('analyze');
 
@@ -227,7 +227,7 @@ class ExecutorJob {
 
     }
 
-    _saveResult(result) {
+    _saveResult (result) {
 
         this._logger.debug('saveResult');
 
@@ -246,11 +246,11 @@ class ExecutorJob {
 
     }
 
-    _getPrevCheckTask() {
+    _getPrevCheckTask () {
         return this._api.checkTasks.findPrevByCheckId(this._checkTask.checkId);
     }
 
-    _notify(checkTask, prevCheckTask) {
+    _notify (checkTask, prevCheckTask) {
 
         return new Promise((resolve, reject) => {
 
@@ -283,7 +283,7 @@ class ExecutorJob {
 
     }
 
-    _sendNotification() {
+    _sendNotification () {
 
 
         return new Promise((resolve, reject) => {
@@ -317,7 +317,7 @@ class ExecutorJob {
 
     }
 
-    _update(id, data) {
+    _update (id, data) {
         return this._api.checkTasks.updateById(id, data);
     }
 

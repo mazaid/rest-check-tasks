@@ -4,9 +4,13 @@
   "description": "check tasks REST API",
   "main": "index.js",
   "scripts": {
+    "clean": "rm -rf ./esdoc ./coverage",
+    "docs:open": "npm run docs && open ./esdoc/index.html",
     "docs": "rm -rf ./docs && ./node_modules/.bin/jsdoc ./ -c ./.jsdoc.json --verbose && open ./docs/index.html",
     "tests": "./node_modules/.bin/mocha ./test/",
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./test/"
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./test/",
+    "lint": "./node_modules/.bin/eslint -c .eslintrc.js api init models rest",
+    "lint:fix": "./node_modules/.bin/eslint -c .eslintrc.js --fix  api init models rest"
   },
   "engines": {
     "node": ">=4"
@@ -46,12 +50,12 @@
   },
   "devDependencies": {
     "chai": "3.5.0",
-    "chai-json-schema": "git+https://github.com/chaijs/chai-json-schema.git",
+    "chai-json-schema": "^1.4.0",
     "codeclimate-test-reporter": "^0.4.0",
-    "ink-docstrap": "^1.2.1",
+    "esdoc": "^0.4.8",
+    "esdoc-node": "^1.0.0",
+    "eslint": "^3.11.1",
     "istanbul": "^0.4.4",
-    "jsdoc": "^3.4.0",
-    "minami": "^1.1.1",
     "mocha": "^3.1.2"
   }
 }

@@ -12,13 +12,13 @@ var ExecutorJob = require('./Job');
 
 class Executor {
 
-    constructor(logger, config, api) {
+    constructor (logger, config, api) {
         this._logger = logger;
         this._config = config;
         this._api = api;
     }
 
-    exec(id) {
+    exec (id) {
         this._exec(id)
             .then((result) => {
                 this._logger.info(`checkTaskId=${id} finished success`);
@@ -30,7 +30,7 @@ class Executor {
     }
 
 
-    _exec(id) {
+    _exec (id) {
 
         return new Promise((resolve, reject) => {
 

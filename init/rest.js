@@ -5,7 +5,7 @@ var joi = require('joi');
 
 var Rest = require('maf/Rest');
 
-module.exports = function(logger, app, di) {
+module.exports = function (logger, app, di) {
 
     return new Promise((resolve, reject) => {
 

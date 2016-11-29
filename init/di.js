@@ -20,7 +20,7 @@ module.exports = (logger, config, originalDi) => {
             originalDb = originalDi.db;
         }
 
-        require(path.join(__dirname,'db'))(config, di, originalDb)
+        require(path.join(__dirname, 'db'))(config, di, originalDb)
             .then(() => {
                 return require(path.join(__dirname, '..', 'models'))(config, di);
             })

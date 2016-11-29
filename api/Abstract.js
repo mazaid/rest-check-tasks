@@ -15,36 +15,36 @@ class ApiAbstract extends Abstract {
      * @param  {Object} models
      * @param  {Object} api
      */
-    constructor(models, api) {
+    constructor (models, api) {
         super(models, api);
     }
 
-    getCreationSchema() {
+    getCreationSchema () {
         return this._creationSchema();
     }
 
-    getModificationSchema() {
+    getModificationSchema () {
         return this._modificationSchema();
     }
 
-    _generateUuid() {
+    _generateUuid () {
         return uuid.v4();
     }
 
-    _time() {
+    _time () {
         return moment().unix();
     }
 
-    _validateCreation(data, options) {
+    _validateCreation (data, options) {
         return this._validate(data, this._creationSchema(), options);
     }
 
-    _validateModification(data, options) {
+    _validateModification (data, options) {
         return this._validate(data, this._modificationSchema(), options);
     }
 
-    _isEmptyObject(object) {
-        if (!object || (typeof object  === 'object' && Object.keys(object).length === 0)) {
+    _isEmptyObject (object) {
+        if (!object || (typeof object === 'object' && Object.keys(object).length === 0)) {
             return true;
         }
 
@@ -57,15 +57,15 @@ class ApiAbstract extends Abstract {
       * @param  {Object} fields
       * @return {Object}
       */
-     _prepareFields(fields) {
-         var result = {};
+    _prepareFields (fields) {
+        var result = {};
 
-         _.each(fields, (f) => {
-             result[f] = 1;
-         });
+        _.each(fields, (f) => {
+            result[f] = 1;
+        });
 
-         return result;
-     }
+        return result;
+    }
 
      /**
       * return Error object
@@ -73,13 +73,13 @@ class ApiAbstract extends Abstract {
       * @param {string} message
       * @param {String} code
       */
-     Error(message, code) {
-         if (!this._errorFn) {
-             this._errorFn = errorCreateFn(this.ErrorCodes);
-         }
+    Error (message, code) {
+        if (!this._errorFn) {
+            this._errorFn = errorCreateFn(this.ErrorCodes);
+        }
 
-         return this._errorFn(message, code, this.entityName);
-     }
+        return this._errorFn(message, code, this.entityName);
+    }
 
 }
 

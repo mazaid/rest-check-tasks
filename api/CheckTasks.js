@@ -16,7 +16,7 @@ var Chain = require('maf/Chain');
 
 class CheckTasks extends Abstract {
 
-    constructor(config, models, api) {
+    constructor (config, models, api) {
         super(models, api);
 
         this._config = config;
@@ -25,7 +25,7 @@ class CheckTasks extends Abstract {
 
         this.ErrorCodes = ErrorCodes;
 
-        this._creationSchema = function() {
+        this._creationSchema = function () {
             return {
                 checkId: joi.string().guid().default(null).allow(null),
                 execTaskId: joi.string().guid().default(null).allow(null),
@@ -47,7 +47,7 @@ class CheckTasks extends Abstract {
             };
         };
 
-        this._modificationSchema = function() {
+        this._modificationSchema = function () {
             return {
                 execTaskId: joi.string().guid(),
 
@@ -71,7 +71,7 @@ class CheckTasks extends Abstract {
         ];
     }
 
-    getCreationSchemaForRestApi() {
+    getCreationSchemaForRestApi () {
         var schema = this._creationSchema();
         var fields = ['checkId', 'checker', 'timeout', 'data', 'userAnalyzeFn'];
         var s = _.pick(schema, fields);
@@ -79,7 +79,7 @@ class CheckTasks extends Abstract {
     }
 
 
-    getById(id) {
+    getById (id) {
 
         return new Promise((resolve, reject) => {
             this._model().findOne({_id: id})
@@ -93,7 +93,7 @@ class CheckTasks extends Abstract {
 
     }
 
-    findLatestByCheckId(checkIds) {
+    findLatestByCheckId (checkIds) {
 
         return new Promise((resolve, reject) => {
             this._models.latestByCheckId.find({_id: {'$in': checkIds}}).exec()
@@ -113,7 +113,7 @@ class CheckTasks extends Abstract {
 
     }
 
-    findPrevByCheckId(checkId) {
+    findPrevByCheckId (checkId) {
 
         return new Promise((resolve, reject) => {
 
@@ -137,7 +137,7 @@ class CheckTasks extends Abstract {
 
     }
 
-    find(filters, fields) {
+    find (filters, fields) {
 
         var chain = new Chain({
             steps: {
@@ -181,7 +181,7 @@ class CheckTasks extends Abstract {
 
     }
 
-    create(data) {
+    create (data) {
 
         return new Promise((resolve, reject) => {
 
@@ -219,7 +219,7 @@ class CheckTasks extends Abstract {
 
     }
 
-    createTest() {
+    createTest () {
         var data = {
             name: 'test',
             title: 'test',
@@ -232,7 +232,7 @@ class CheckTasks extends Abstract {
         return this.create(data);
     }
 
-    updateById(id, data) {
+    updateById (id, data) {
 
         return new Promise((resolve, reject) => {
             if (this._isEmptyObject(data)) {
@@ -270,7 +270,7 @@ class CheckTasks extends Abstract {
 
     }
 
-    deleteById(id) {
+    deleteById (id) {
 
         return new Promise((resolve, reject) => {
 
@@ -364,7 +364,7 @@ class CheckTasks extends Abstract {
      *
      * @return {Error}
      */
-    NotFoundError(id) {
+    NotFoundError (id) {
         var message = this.entityName + ' not found';
 
         if (id) {
@@ -379,7 +379,7 @@ class CheckTasks extends Abstract {
      *
      * @return {model}
      */
-    _model() {
+    _model () {
         return this._models.checkTasks;
     }
 }
