@@ -6,7 +6,7 @@ process.on('unhandledRejection', function (err) {
     logger.fatal(err);
 });
 
-require('./init/config')()
+require('./init/config')(logger)
     .then((config) => {
         return require('./init/di')(logger, config);
     })
