@@ -33,21 +33,21 @@
   },
   "homepage": "https://github.com/mazaid/rest-check-tasks#readme",
   "dependencies": {
-    "joi": "^9.2.0",
-    "lodash": "4.16.4",
+    "joi": "^10.0.2",
+    "lodash": "^4.17.2",
     "maf": "^0.5.0",
     "mazaid-check": "^0.4.1",
     "mazaid-check-task": "^0.3.0",
     "mazaid-checkers": "0.1.4",
     "mazaid-error": "0.3.1",
-    "mazaid-exec-task": "^0.1.9",
+    "mazaid-exec-task": "^0.2.0",
     "mazaid-rest-api-clients": "^0.1.6",
     "md5": "2.2.1",
     "moment": "^2.15.1",
-    "mongodb": "2.2.10",
-    "nprof": "^0.5.0",
+    "mongodb": "^2.2.12",
+    "nprof": "^0.6.0",
     "repl-extra": "0.1.3",
-    "uuid": "2.0.3"
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "chai": "3.5.0",
