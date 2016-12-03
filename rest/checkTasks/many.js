@@ -17,7 +17,7 @@ module.exports = {
                     offset: joi.number().default(0).min(0).max(100),
                     fields:  joi.alternatives().try(joi.array().items(joi.string()), joi.string()),
                     checkId: joi.alternatives().try(joi.string(), joi.array().items(joi.string())),
-                    latest: joi.boolean()
+                    latest: joi.boolean().truthy('true').falsy('false')
                 }
             },
 
