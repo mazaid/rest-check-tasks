@@ -70,8 +70,9 @@ class ApiAbstract extends Abstract {
      /**
       * return Error object
       *
-      * @param {string} message
+      * @param {String} message
       * @param {String} code
+      * @return {Error}
       */
     Error (message, code) {
         if (!this._errorFn) {

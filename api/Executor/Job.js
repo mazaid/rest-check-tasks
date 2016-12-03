@@ -91,7 +91,7 @@ class ExecutorJob {
     _validate (rawTask) {
 
         if (!rawTask) {
-            throw createError(`check task id = ${id} not found`, ErrorCodes.NOT_FOUND);
+            throw createError(`check task id = ${rawTask.id} not found`, ErrorCodes.NOT_FOUND);
         }
 
         rawTask = this._api.checkTasks.clearSystemFields(rawTask);

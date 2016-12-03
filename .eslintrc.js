@@ -34,7 +34,7 @@ module.exports = {
         'semi': ['error', 'always'],
 
         // http://eslint.org/docs/rules/no-unused-vars
-        'no-unused-vars': ['error'],
+        'no-unused-vars': ['warn'],
 
         // http://eslint.org/docs/rules/brace-style
         'brace-style': ['error', '1tbs'],
