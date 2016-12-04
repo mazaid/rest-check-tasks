@@ -37,7 +37,7 @@ class CheckTasks extends Abstract {
                 rawResult: joi.any().description('parsed exec result').default(null).allow(null),
                 result: joi.object().unknown(true).keys({
                     status: joi.string().valid(['pass', 'fail', 'warn']).required(),
-                    message: joi.string(),
+                    message: joi.string().trim(true).empty(''),
                 }).default(null).allow(null),
                 creationDate: joi.number().integer().min(0).required(),
                 timeoutDate: joi.number().integer().min(0).required(),
@@ -57,7 +57,7 @@ class CheckTasks extends Abstract {
 
                 result: joi.object().unknown(true).keys({
                     status: joi.string().valid(['pass', 'fail', 'warn']).required(),
-                    message: joi.string(),
+                    message: joi.string().trim(true).empty(''),
                 }),
 
                 queuedDate: joi.number().integer().min(0),
