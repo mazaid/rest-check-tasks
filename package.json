@@ -1,6 +1,6 @@
 {
   "name": "mazaid-rest-check-tasks",
-  "version": "0.7.0",
+  "version": "0.6.3",
   "description": "check tasks REST API",
   "main": "index.js",
   "scripts": {
@@ -43,7 +43,7 @@
     "mazaid-exec-task": "^0.2.2",
     "mazaid-rest-api-clients": "^0.1.6",
     "md5": "2.2.1",
-    "moment": "^2.15.1",
+    "moment": "^2.17.1",
     "mongodb": "^2.2.12",
     "nprof": "^0.6.0",
     "repl-extra": "0.1.3",
